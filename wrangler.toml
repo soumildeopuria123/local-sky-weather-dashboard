@@ -1,0 +1,13 @@
+# Local development only. Sites supplies the real D1 binding when deployed.
+name = "local-sky-site"
+main = "dist/worker.js"
+compatibility_date = "2026-11-07"
+
+[assets]
+directory = "./dist/public"
+binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "local-sky-local"
+database_id = "9a0f3c2e-5b7d-4e21-8c6a-1d4f8b9e2c30"
