@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.wrangler/
+sites.manifest.json.bak
+data/
+.env
+.DS_Store
+npm-debug.log*
+.deploy_key
+.deploy_key.pub
+.server.pid
+.server.log
+.server-*.log
+files/.freebuff-project-files.json
