@@ -1,5 +1,7 @@
 # Local Sky — a live weather dashboard
 
+[![test status](https://github.com/soumildeopuria123/local-sky-weather-dashboard/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/soumildeopuria123/local-sky-weather-dashboard/actions/workflows/test.yml)
+
 A full-stack weather dashboard that shows **real, live weather** for the cities you
 save, plus a built-in generator that keeps the app usable when you are offline.
 
