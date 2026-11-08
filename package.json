@@ -1,0 +1,16 @@
+{
+  "name": "local-weather-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A weather dashboard with live Open-Meteo readings and a deterministic local fallback engine. No API key required.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test test/",
+    "build:worker": "npx --yes esbuild@0.25.0 worker/index.js --bundle --format=esm --platform=neutral --target=es2022 --outfile=dist/worker.js && rm -rf dist/public && mkdir -p dist/public && cp -R public/. dist/public/ && mv dist/public/index.html dist/public/dashboard.html"
+  }
+}
