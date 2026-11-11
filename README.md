@@ -2,6 +2,8 @@
 
 [![test status](https://github.com/soumildeopuria123/local-sky-weather-dashboard/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/soumildeopuria123/local-sky-weather-dashboard/actions/workflows/test.yml)
 
+**See the new look:** [Open the refreshed Local Sky dashboard →](https://site-02eae6937c2c44fbb69befdf484dd7bf.freebuff.page/signin)
+
 A full-stack weather dashboard that shows **real, live weather** for the cities you
 save, plus a built-in generator that keeps the app usable when you are offline.
 
@@ -19,6 +21,8 @@ save, plus a built-in generator that keeps the app usable when you are offline.
   Caps Lock warning, and an optional "remember my email" setting
 - **Day / night dashboard:** a sun/moon switch with a saved preference and a
   matching light world map
+- **Living dashboard:** condition-aware animated weather icons, a starfield,
+  pulsing map pins, staggered card reveals and a pointer-following card glow
 - **Storage:** JSON files locally (`data/users.json`, `data/boards/<id>.json`);
   D1 tables when hosted
 
@@ -38,10 +42,12 @@ are geocoded to real coordinates, so you can also use `Portland, ME` or
 
 ## Share it
 
-The dashboard is published at **https://site-3562ca775bdc45628169d6856046bfa4.freebuff.page/signin**.
+The refreshed dashboard is live at **https://site-02eae6937c2c44fbb69befdf484dd7bf.freebuff.page/signin** — a new shareable preview of this version. It uses its own database, so create an account there to explore the new look.
 
-This link always opens the sign-in / create-account page; after signing in you
-land on your dashboard. Open it on any device, create an account and add cities. Accounts, saved places
+The stable production app is at **https://site-3562ca775bdc45628169d6856046bfa4.freebuff.page/signin**; existing accounts work there, and it now has the same refreshed interface.
+
+Both links always open the sign-in / create-account page; after signing in you
+land on your dashboard. Accounts and saved places are separate for each deployment. Open it on any device, create an account and add cities. Accounts, saved places
 and settings live in that deployment's D1 database, so the link works without a
 server running on your computer. The hosted build is produced from the same
 source:
