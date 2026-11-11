@@ -21,7 +21,7 @@
   <title>Local Sky — live weather for your cities</title>
   <meta name="description" content="A local weather dashboard with live Open-Meteo readings and a clearly labelled offline fallback engine." />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="/styles.css?v=2" />
+  <link rel="stylesheet" href="/styles.css?v=3" />
 </head>
 <body data-tone="clear">
   <div class="sky" aria-hidden="true">
@@ -81,6 +81,14 @@
             then current conditions, UV, visibility and a 5-day forecast are pulled
             live from Open-Meteo.
           </p>
+          <div class="hero-live" id="hero-live" aria-live="polite" hidden>
+            <span class="hero-live-icon" id="hero-live-icon" aria-hidden="true"></span>
+            <span class="hero-live-copy">
+              <span class="hero-live-kicker">Right now in <strong id="hero-live-city"></strong></span>
+              <span class="hero-live-condition" id="hero-live-condition"></span>
+            </span>
+            <span class="hero-live-temp" id="hero-live-temp"></span>
+          </div>
         </div>
 
         <form id="add-form" class="add-form" novalidate autocomplete="off">
@@ -167,6 +175,6 @@
   </div>
 
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
-  <script type="module" src="/app.js?v=2"></script>
+  <script type="module" src="/app.js?v=3"></script>
 </body>
 </html>

@@ -44,6 +44,11 @@ const els = {
   empty: document.getElementById("empty"),
   welcomeName: document.getElementById("welcome-name"),
   emptyCta: document.getElementById("empty-cta"),
+  heroLive: document.getElementById("hero-live"),
+  heroLiveIcon: document.getElementById("hero-live-icon"),
+  heroLiveCity: document.getElementById("hero-live-city"),
+  heroLiveCondition: document.getElementById("hero-live-condition"),
+  heroLiveTemp: document.getElementById("hero-live-temp"),
   banner: document.getElementById("banner"),
   mapPanel: document.getElementById("map-panel"),
   mapPins: document.getElementById("map-pins"),
@@ -67,6 +72,16 @@ const els = {
 
 const AUTO_REFRESH_AFTER_MS = 10 * 60 * 1000;
 const THEME_KEY = "localSkyTheme";
+
+const WEATHER_NOTES = {
+  sunny: "A bright one — make the most of it.",
+  cloudy: "Soft skies and an easy pace.",
+  rain: "Keep an umbrella within reach.",
+  storm: "Best enjoyed from indoors.",
+  snow: "Bundle up and take it slow.",
+  fog: "Low visibility — go gently.",
+  night: "The sky is settling in.",
+};
 
 let toastTimer = null;
 
@@ -117,6 +132,10 @@ function uvDescriptor(index) {
   if (index <= 7) return "High";
   if (index <= 10) return "Very high";
   return "Extreme";
+}
+
+function weatherNote(current) {
+  return WEATHER_NOTES[current?.condition?.tone] ?? "A little weather, a little wonder.";
 }
 
 function showToast(message) {
@@ -390,6 +409,7 @@ function cardHtml(location) {
             <span>${escapeHtml(current.condition.label)}</span>
           </div>
           <p class="range"><b>H ${highLow}°</b> · L ${lowLow}° · ${current.precipitationChance}% rain</p>
+          <p class="sky-note">${escapeHtml(weatherNote(current))}</p>
         </div>
         <div class="now-icon">${iconMarkup(current.condition.icon)}</div>
       </div>
@@ -454,6 +474,24 @@ function renderUnitToggle() {
   }
 }
 
+function renderHeroNow() {
+  const location = state.locations.find((entry) => entry.isDefault) ?? state.locations[0];
+
+  if (state.loading || !location) {
+    els.heroLive.hidden = true;
+    return;
+  }
+
+  const labels = location.unitLabels;
+  els.heroLive.hidden = false;
+  els.heroLive.dataset.tone = location.current.condition.tone;
+  els.heroLiveIcon.innerHTML = iconMarkup(location.current.condition.icon);
+  els.heroLiveCity.textContent = location.city;
+  els.heroLiveCondition.textContent =
+    `${location.current.condition.label} · feels like ${location.current.feelsLike}${labels.temperature}`;
+  els.heroLiveTemp.textContent = `${Math.round(location.current.temperature)}${labels.temperature}`;
+}
+
 function renderMap() {
   const pinned = state.locations.filter(
     (location) => Number.isFinite(location.latitude) && Number.isFinite(location.longitude),
@@ -510,6 +548,7 @@ function render() {
   els.dashboard.hidden = state.loading || !hasLocations;
   els.empty.hidden = state.loading || hasLocations;
   els.welcomeName.textContent = firstName(state.user?.name);
+  renderHeroNow();
 
   if (!state.loading && hasLocations) {
     els.dashboard.innerHTML = state.locations.map(cardHtml).join("");
@@ -740,6 +779,17 @@ els.dashboard.addEventListener("click", (event) => {
   if (action === "remove") removeSaved(id);
   if (action === "default") makeDefault(id);
 });
+
+if (window.matchMedia?.("(hover: hover)").matches) {
+  els.dashboard.addEventListener("pointermove", (event) => {
+    const card = event.target.closest(".card");
+    if (!card) return;
+
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty("--glow-x", `${event.clientX - rect.left}px`);
+    card.style.setProperty("--glow-y", `${event.clientY - rect.top}px`);
+  });
+}
 
 els.mapPins.addEventListener("click", (event) => {
   const pin = event.target.closest("[data-map-id]");
