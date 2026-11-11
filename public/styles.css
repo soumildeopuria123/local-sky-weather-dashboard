@@ -1900,3 +1900,371 @@ html[data-theme="light"] .toast {
   border-color: rgba(16, 35, 63, 0.12);
   box-shadow: 0 20px 40px -24px rgba(28, 65, 109, 0.45);
 }
+
+/* ----------------------------- lively layer ---------------------------- */
+
+/* A quiet field of stars gives the night sky some depth. */
+.sky::before {
+  content: "";
+  position: absolute;
+  inset: -22%;
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.7) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 74% 36%, rgba(190, 218, 255, 0.55) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 46% 78%, rgba(255, 255, 255, 0.45) 0 1px, transparent 1.6px);
+  background-size: 360px 360px, 540px 540px, 720px 720px;
+  opacity: 0.42;
+  animation: star-drift 90s linear infinite;
+}
+
+html[data-theme="light"] .sky::before {
+  display: none;
+}
+
+.eyebrow .dot {
+  animation: live-pulse 2.8s ease-in-out infinite;
+}
+
+.hero-live {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 18px;
+  padding: 10px 14px 10px 10px;
+  border-radius: 17px;
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025));
+  box-shadow: 0 16px 34px -30px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  animation: hero-live-in 0.5s ease both;
+}
+
+.hero-live[hidden] {
+  display: none;
+}
+
+.hero-live-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--tone-soft, rgba(110, 168, 255, 0.18));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.hero-live-icon .ic {
+  width: 31px;
+  height: 31px;
+  animation: weather-float 6s ease-in-out infinite;
+}
+
+.hero-live-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.hero-live-kicker {
+  font-size: 0.63rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero-live-kicker strong {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--muted-strong);
+}
+
+.hero-live-condition {
+  overflow: hidden;
+  font-size: 0.78rem;
+  color: var(--text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hero-live-temp {
+  margin-left: 6px;
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--tone, var(--text));
+  font-variant-numeric: tabular-nums;
+}
+
+html[data-theme="light"] .hero-live {
+  background: rgba(255, 255, 255, 0.66);
+  box-shadow: 0 16px 34px -28px rgba(28, 65, 109, 0.45), inset 0 1px 0 #fff;
+}
+
+html[data-theme="light"] .hero-live-icon {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* Cards reveal in sequence, then glow where the pointer is. */
+.card {
+  --glow-x: 50%;
+  --glow-y: 12%;
+}
+
+.card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    280px circle at var(--glow-x) var(--glow-y),
+    var(--tone-soft, rgba(110, 168, 255, 0.18)),
+    transparent 68%
+  );
+  transition: opacity 0.24s ease;
+}
+
+.card:nth-child(2) {
+  animation-delay: 0.05s;
+}
+
+.card:nth-child(3) {
+  animation-delay: 0.1s;
+}
+
+.card:nth-child(4) {
+  animation-delay: 0.15s;
+}
+
+.card:nth-child(5) {
+  animation-delay: 0.2s;
+}
+
+.card:nth-child(6) {
+  animation-delay: 0.25s;
+}
+
+@media (hover: hover) {
+  .card:hover::after {
+    opacity: 1;
+  }
+}
+
+.sky-note {
+  margin: 9px 0 0;
+  padding-left: 10px;
+  border-left: 2px solid var(--tone, var(--accent));
+  font-size: 0.77rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* The current-condition icon gets its own small weather system. */
+.now-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+.now-icon::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 9%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--tone-soft, rgba(110, 168, 255, 0.25)), transparent 68%);
+  filter: blur(11px);
+  animation: aura-pulse 5s ease-in-out infinite;
+}
+
+.now-icon .ic {
+  animation: weather-float 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+[data-tone="sunny"] .now-icon .ic svg g,
+[data-tone="cloudy"] .now-icon .ic svg g {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sun-spin 30s linear infinite;
+}
+
+[data-tone="rain"] .now-icon::after,
+[data-tone="storm"] .now-icon::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 50% 8% -12%;
+  background-image: repeating-linear-gradient(
+    105deg,
+    transparent 0 14px,
+    rgba(124, 195, 255, 0.7) 14px 16px
+  );
+  opacity: 0.42;
+  mask-image: linear-gradient(transparent, #000 35%);
+  animation: rain-sweep 1.15s linear infinite;
+}
+
+[data-tone="snow"] .now-icon::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 48% 4% -12%;
+  background-image: radial-gradient(circle, rgba(220, 245, 255, 0.9) 0 1.6px, transparent 2px);
+  background-size: 17px 23px;
+  opacity: 0.55;
+  animation: snow-sweep 5s linear infinite;
+}
+
+/* Map pins breathe gently and forecast bars grow into place. */
+.map-pin {
+  isolation: isolate;
+}
+
+.map-pin-temp {
+  position: relative;
+  z-index: 1;
+}
+
+.map-pin::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--tone, #6ea8ff);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.6);
+  animation: pin-pulse 3.2s ease-out infinite;
+}
+
+.bar i {
+  transform-origin: left;
+  animation: bar-grow 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.day .ic {
+  transition: transform 0.2s ease;
+}
+
+.day:hover .ic {
+  transform: translateY(-2px) rotate(-3deg);
+}
+
+.metric {
+  transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+}
+
+.metric:hover {
+  border-color: var(--tone, var(--accent));
+  transform: translateY(-2px);
+}
+
+@media (max-width: 520px) {
+  .hero-live {
+    width: 100%;
+  }
+
+  .hero-live-condition {
+    white-space: normal;
+  }
+}
+
+@keyframes star-drift {
+  to {
+    transform: translate3d(-1.5%, 1.2%, 0);
+  }
+}
+
+@keyframes live-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(94, 225, 165, 0.55);
+    opacity: 0.9;
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(94, 225, 165, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes hero-live-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+}
+
+@keyframes weather-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(1.5deg);
+  }
+}
+
+@keyframes aura-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes sun-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rain-sweep {
+  to {
+    background-position: -18px 36px;
+  }
+}
+
+@keyframes snow-sweep {
+  to {
+    background-position: 20px 46px;
+  }
+}
+
+@keyframes pin-pulse {
+  0% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.4);
+  }
+}
+
+@keyframes bar-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
