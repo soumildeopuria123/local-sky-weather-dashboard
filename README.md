@@ -2,7 +2,7 @@
 
 [![test status](https://github.com/soumildeopuria123/local-sky-weather-dashboard/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/soumildeopuria123/local-sky-weather-dashboard/actions/workflows/test.yml)
 
-**See the new look:** [Open the refreshed Local Sky dashboard →](https://site-02eae6937c2c44fbb69befdf484dd7bf.freebuff.page/signin)
+**See the new look:** [Open the refreshed Local Sky dashboard ](https://site-02eae6937c2c44fbb69befdf484dd7bf.freebuff.page/signin)
 
 A full-stack weather dashboard that shows **real, live weather** for the cities you
 save, plus a built-in generator that keeps the app usable when you are offline.
